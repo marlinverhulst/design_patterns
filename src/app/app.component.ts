@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Archer, Cavalry, Infantry } from './tamal';
+import { ArmyBuilder } from './tamal copy';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,15 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  public trafficLight = new TrafficLight()
+  public archer = new Archer('ben', 12, 'shooting arrows fast');
+  public cavalry = new Cavalry('mike', 12, 'blowing horns');
+  public infantry = new Infantry('Dave', 12, 'laying low');
+
+  public builder = new ArmyBuilder()
+
+  public marlin = this.builder.setType('Programmer').setName("Marlin").setPower(9).setSkill("sleeping").build()
+
+
   
   ngOnInit(): void {
   
