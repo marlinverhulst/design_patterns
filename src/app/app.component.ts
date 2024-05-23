@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Archer, Cavalry, Infantry } from './tamal';
 import { ArmyBuilder } from './tamal copy';
-import { DocumentsManager, User } from './randy';
+import { DocumentsManager, ProxyDocumentsManager, User } from './randy';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ import { DocumentsManager, User } from './randy';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-   documentsManager = new DocumentsManager();
+   documentsManager = new ProxyDocumentsManager();
    traineeEmployee  = new User('Marlin', 'Trainee', [])
    SeniorEmployee  = new User('Randy', 'Trainee', ['secretDocuments'])
 
