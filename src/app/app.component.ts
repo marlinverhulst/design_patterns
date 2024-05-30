@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Archer, Cavalry, Infantry } from './tamal';
 import { ArmyBuilder } from './tamal copy';
 import { DocumentsManager, ProxyDocumentsManager, User } from './randy';
+import { Dreadnough, Interceptor, Warhammer } from './emiel';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +13,13 @@ import { DocumentsManager, ProxyDocumentsManager, User } from './randy';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-   documentsManager = new ProxyDocumentsManager();
-   traineeEmployee  = new User('Marlin', 'Trainee', [])
-   SeniorEmployee  = new User('Randy', 'Trainee', ['secretDocuments'])
+   public warhammer = new Warhammer();
+   public dreadnough = new Dreadnough();
+   public  interceptor =  new Interceptor() 
 
-   response: string =  '';
+   
 
-
-   public requestDocs(requester: User): string {
-    return this.response = this.documentsManager.requestDocuments(requester)
-   }
+   
 
   
 

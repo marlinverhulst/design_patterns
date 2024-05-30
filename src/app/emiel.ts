@@ -51,7 +51,7 @@ export class HeavyEngine implements Engine {
 }
 export class NimbleEngine implements Engine {
     fly(){
-        console.log('Im doing heavy flying');
+        console.log('Im doing nimble flying');
     };
     
 }
@@ -94,7 +94,7 @@ export class Dreadnough  extends Ship {
     public override name = 'Dreadnough';
 
     public constructor() {
-        super(new HeavyEngine, new Clusters, new BasicShield)
+        super(new HeavyEngine(), new Clusters(), new BasicShield())
     }
 
 }
@@ -102,7 +102,7 @@ export class Interceptor extends Ship {
     public override name = 'Interceptor';
     
     public constructor() {
-        super(new NimbleEngine, new Laser)
+        super(new NimbleEngine(), new Laser())
     }
 
 }  
@@ -110,7 +110,7 @@ export class Warhammer extends Ship {
     public override name = 'Warhammer';
 
     public constructor() {
-        super(new HeavyEngine, new Rockets, new BasicShield)
+        super(new HeavyEngine(), new Rockets(), new BasicShield())
     }
     
 } 
