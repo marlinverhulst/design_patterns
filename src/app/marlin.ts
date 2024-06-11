@@ -5,7 +5,7 @@ export interface Renderable {
 export abstract class UiInterface implements Renderable {
  private value: string | number = '';
 
- public setvalue( value: string | number){
+ public setvalue( value: string | number): void {
     this.value = value;
  }
 
@@ -26,13 +26,14 @@ export abstract class Level {
         this.player = player
     }
 
-    abstract update(): void
     render(): void {
         console.log(`${this.name} rendering`)
         this.player.render()
         this.enemies.forEach(e => e.render())
         this.ui.forEach(ui => ui.render())
     }
+    
+    abstract update(): void
 }
 
 //** CONCRETE CLASSES */
@@ -43,7 +44,7 @@ export class Player implements Renderable {
 }
 
 export class Enemy implements Renderable {
-    public render(){
+    public render(): void {
         console.log("enemy rendering")
     }
 }
@@ -52,7 +53,6 @@ export class ScoreUi extends UiInterface {
     public override render(): void {
         console.log(`current score: ${this.getValue()} `);
     }
-    
 }
 
 
@@ -71,16 +71,16 @@ export class Game {
         return this.currentLevel.name
     }
 
-    public loadLevel(level:Level) {
+    public loadLevel(level:Level): void {
         this.currentLevel = level;
     }
 
-    constructor(initLevel: Level){
+    constructor(initLevel: Level) {
         this.currentLevel = initLevel
 
     }
 
-    public gameLoop(){
+    public gameLoop(): void {
         this.currentLevel.update();
         this.currentLevel.render();
     }
@@ -95,7 +95,7 @@ export class Settings {
        if(!this.instance){
          this.instance = new Settings()
        }
-       return this.instance
+       return this.instance;
     }
 }  
 
@@ -118,11 +118,18 @@ export class SpaceStage extends Level {
         // setting the values 
         this.scoreUi.setvalue(this.settings.score);
         this.livesUi.setvalue(this.settings.lives);
+
+        //add them to the renderQue 
+        this.ui.push(this.scoreUi, this.livesUi)
         
     }
     override update(): void {
         this.settings.lives = this.settings.lives - 1;
         this.settings.score = this.settings.score + 300;
+
+         //update the score in the ui
+         this.scoreUi.setvalue(this.settings.score);
+         this.livesUi.setvalue(this.settings.lives);
 
         console.log('we Lost one live');
         console.log('300 score added ')
@@ -146,14 +153,20 @@ export class EarthStage extends Level {
         this.enemies.push(...enemies)
         this.settings = Settings.getInstance()
 
-        // setting the values 
+        // setting the initial values 
         this.scoreUi.setvalue(this.settings.score);
         this.livesUi.setvalue(this.settings.lives);
+        // add ui to the renderque 
+        this.ui.push(this.scoreUi, this.livesUi)
     }
 
     override update(): void {
         this.settings.lives = this.settings.lives + 4;
         this.settings.score = this.settings.score + 4000;
+
+        //update the score in the ui
+        this.scoreUi.setvalue(this.settings.score);
+        this.livesUi.setvalue(this.settings.lives);
 
         console.log('we gained 4 lives');
         console.log('4000 score added ')
