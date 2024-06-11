@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Archer, Cavalry, Infantry } from './tamal';
-import { ArmyBuilder } from './tamal copy';
-import { DocumentsManager, ProxyDocumentsManager, User } from './randy';
-import { Dreadnough, Interceptor, Warhammer } from './emiel';
+import { EarthStage, Game, Settings, SpaceStage } from './marlin';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +10,18 @@ import { Dreadnough, Interceptor, Warhammer } from './emiel';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-   public warhammer = new Warhammer();
-   public dreadnough = new Dreadnough();
-   public  interceptor =  new Interceptor() 
 
+ public game = new Game(new SpaceStage())
+ public setting = Settings.getInstance()
    
-
+public loadLevel(){
+  if(this.game.getLevelName() === 'SPACE STAGE'){
+    this.game.loadLevel(new EarthStage())
+  }
+  else {
+   this.game.loadLevel(new SpaceStage()) 
+  }
+} 
    
 
   
