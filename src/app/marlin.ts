@@ -86,12 +86,15 @@ export class Game {
     }
 }
 
+// Singleton Settings
 export class Settings {
     private static instance: Settings| undefined = undefined
     public score = 0;
     public lives = 3;
 
-     static getInstance(): Settings {
+    private constructor(){}
+
+    static getInstance(): Settings {
        if(!this.instance){
          this.instance = new Settings()
        }
