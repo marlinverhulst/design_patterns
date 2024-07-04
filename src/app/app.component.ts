@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EarthStage, Game, Settings, SpaceStage } from './marlin';
+import { AstroidFactory, DesktopGame, FixedAmountsAstoidFactory } from './emiel2';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +12,8 @@ import { EarthStage, Game, Settings, SpaceStage } from './marlin';
 })
 export class AppComponent {
 
- public game = new Game(new SpaceStage())
- public setting = Settings.getInstance()
-   
-public loadLevel(){
-  if(this.game.getLevelName() === 'SPACE STAGE'){
-    this.game.loadLevel(new EarthStage())
-  }
-  else {
-   this.game.loadLevel(new SpaceStage()) 
-  }
-} 
-   
-
-  
-
-
+ private astriodFactory: AstroidFactory = new FixedAmountsAstoidFactory(1,2,3) 
+ public game = new DesktopGame(this.astriodFactory)
 
 }
 
